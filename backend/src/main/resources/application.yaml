@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: backend
+  mongodb:
+    host: localhost
+    port: 27017
+    database: lets_play_db
