@@ -1,13 +1,14 @@
 package com.backend.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.backend.entity.User;
+import com.backend.service.UserRegistration;
 
 
 
@@ -16,31 +17,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/users")
 public class UserRegistrationController {
     
+    @Autowired
+    private  UserRegistration userRegistration;
     @PostMapping("/register")
-    public String registerUser(@RequestBody String entity) {
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        userRegistration.registerUser(user);
         
-        
-        return entity;
+        return ResponseEntity.ok("user registrsition successful");
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody String entity) {
-        
-        return entity;
+    public ResponseEntity<String> loginUser(@RequestBody User user) {
+        userRegistration.userLogin(user.getEmail(), user.getPassword());
+        return ResponseEntity.ok("login successful");
     }
-
-    @GetMapping("path")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-
-    @PutMapping("path/{id}")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-        
-        return entity;
-    }
-    
-    
-    
 
 }
