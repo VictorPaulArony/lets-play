@@ -1,5 +1,6 @@
 package com.backend.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.backend.dto.UserDto;
@@ -10,6 +11,7 @@ import com.backend.repository.UserRepository;
 public class UserRegistration {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserRegistration(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -32,6 +34,8 @@ public class UserRegistration {
             throw new IllegalArgumentException(
                 "User with this email already exists: " + user.getEmail());
         }
+        user.setRole(User.Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         //save user to database
         userRepository.save(user);
     }
