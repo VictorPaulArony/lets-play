@@ -10,6 +10,10 @@ public class User {
     private String id;
     private String username;
     private String email;
-    private String role;
+    private Role role;
     private String password;
+
+    public enum Role{
+        USER, ADMIN
+    }
 }
